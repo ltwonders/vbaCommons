@@ -1,4 +1,4 @@
-Attribute VB_Name = "MailUtil"
+Attribute VB_Name = "MailUtils"
 Public Function mailByRange(rng As Range, intro As String, subject As String, mailTo As String, Optional mailCC As String, Optional mailBCC As String) As Boolean
     Dim shtActive As Worksheet
     Dim rngSend As Range
@@ -23,7 +23,7 @@ With rngSend
     .Select
     ActiveWorkbook.EnvelopeVisible = True
     With .Parent.MailEnvelope
-        .introduction = intro
+        .Introduction = intro
         With .Item
             .To = mailTo
             .cc = mailCC

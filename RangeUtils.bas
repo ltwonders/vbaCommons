@@ -1,31 +1,29 @@
-Attribute VB_Name = "RangeUtil"
+Attribute VB_Name = "RangeUtils"
 Public Sub copyRows(sht_from As String, row_start As Long, row_end As Long, sht_to As String, Optional row_to As Long = 0)
     If row_to = 0 Then row_to = getLastRow(sht_to) + 1
     Sheets(sht_from).Rows(row_start & ":" & row_end).Copy
     Sheets(sht_to).Rows(row_to).PasteSpecial Paste:=xlPasteValues
 End Sub
-Public Sub copyRange(rng As Range, sht_to As String, col_to As Long, Optional appendTo As Boolean = True)
-    Dim rowTo As Long
-    If appendTo Then rowTo = getLastRow(sht_to, col_to) + 1 Else rowTo = 1
+Public Sub copyRange(rng As Range, sht_to As String, col_to As Long, Optional row_to As Long = 0)
+    If row_to = 0 Then row_to = getLastRow(sht_to, col_to) + 1
     rng.Copy
-    Sheets(sht_to).Cells(rowTo, col_to).PasteSpecial
+    Sheets(sht_to).Cells(row_to, col_to).PasteSpecial
 End Sub
-Public Sub copyCols(title_col As String, sht_from As String, row_title_at As Long, sht_to As String, col_to As Long, _
-                    Optional row_to_end As Long = 0, Optional copy_with_title As Boolean = False)
+Public Sub copyCols(title_of_col As String, sht_from As String, row_title_at As Long, sht_to As String, col_to As Long, _
+                    Optional row_to As Long = 0, Optional copy_with_title As Boolean = False)
     On Error Resume Next
     Dim colMatch As Long
         
-    colMatch = Application.Match(title_col, Sheets(sht_from).Rows(row_title_at), 0)
+    colMatch = Application.Match(title_of_col, Sheets(sht_from).Rows(row_title_at), 0)
     If Err.Number > 0 Then
         Err.Clear
         Exit Sub
     End If
-    
-    If row_to_end = 0 Then row_to_end = getLastRow(sht_from, colMatch)
-    If Not copy_with_title And row_end <= row_title_at Then Exit Sub
-    If copy_with_title Then rowstart = row_title_at Else rowstart = row_title_at + 1
-    strrngcopy = getColId(colMatch) & rowstart & ":" & getColId(colMatch) & row_to_end
-    copyRange rng:=Sheets(sht_from).Range(strrngcopy), sht_to:=sht_to, col_to:=col_to
+    If Not copy_with_title And getLastRow(sht_from, colMatch) <= row_title_at Then Exit Sub         'If only title row and no title copied then exit sub
+    If copy_with_title Then rowStart = row_title_at Else rowStart = row_title_at + 1
+    strrngcopy = getColId(colMatch) & rowStart & ":" & getColId(colMatch) & getLastRow(sht_from, colMatch)   'Copy the entire column from sht_from
+    If row_to = 0 Then row_to = getLastRow(sht_to, col_to) + 1
+    copyRange rng:=Sheets(sht_from).Range(strrngcopy), sht_to:=sht_to, col_to:=col_to, row_to:=row_to
     
 End Sub
 Public Sub clearRows(sht As String, row_start As Long, Optional row_end As Long = 0)
@@ -47,16 +45,16 @@ Public Sub formatRange(rng As Range, Optional line_style As XlLineStyle = xlCont
 End Sub
 Public Function getLastRow(Optional sht_name As String, Optional col_index As Long = 1) As Long
     If sht_name = "" Then
-        getLastRow = Cells(Cells.Rows.Count, col_index).End(xlUp).row
+        getLastRow = Cells(Cells.Rows.Count, col_index).End(xlUp).Row
     Else
-        getLastRow = Sheets(sht_name).Cells(Cells.Rows.Count, col_index).End(xlUp).row
+        getLastRow = Sheets(sht_name).Cells(Cells.Rows.Count, col_index).End(xlUp).Row
     End If
 End Function
 Public Function getLastCol(Optional sht_name As String, Optional row_index As Long = 1) As Long
     If sht_name = "" Then
-        getLastCol = Cells(row_index, Cells.Columns.Count).End(xlToLeft).column
+        getLastCol = Cells(row_index, Cells.Columns.Count).End(xlToLeft).Column
     Else
-        getLastCol = Sheets(sht_name).Cells(row_index, Cells.Columns.Count).End(xlToLeft).column
+        getLastCol = Sheets(sht_name).Cells(row_index, Cells.Columns.Count).End(xlToLeft).Column
     End If
 End Function
 Public Function getColId(pure_num As Long) As String

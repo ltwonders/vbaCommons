@@ -1,4 +1,4 @@
-Attribute VB_Name = "ArrayUtil"
+Attribute VB_Name = "ArrayUtils"
 Public Function writeTwoDimenArray(arr, sht_to As String, col_to As Long, Optional row_to As Long = 0, Optional asTranspose As Boolean = True) As Boolean
     'Write a one-dimen to the sht_to's col_to, first dimen in row, seconde dimen in col
     'Two-dimen array is default vertical first,then horizontal
@@ -50,9 +50,9 @@ continue:
     
     If Err.Number > 0 Then Err.Clear Else getSum = result
 End Function
-Public Function getMax(arr) As Long
+Public Function getMax(arr)
     If Not IsArray(arr) Then Exit Function
-    Dim result As Long
+    Dim result
     On Error Resume Next
     
     result = arr(0)
@@ -62,9 +62,9 @@ Public Function getMax(arr) As Long
     
     If Err.Number > 0 Then Err.Clear Else getMax = result
 End Function
-Public Function getMin(arr) As Long
+Public Function getMin(arr)
     If Not IsArray(arr) Then Exit Function
-    Dim result As Long
+    Dim result
     On Error Resume Next
     
     result = arr(0)
@@ -97,3 +97,4 @@ Public Sub sortArray(arr, Optional Ascending As Boolean = True)
     Next i
     
 End Sub
+

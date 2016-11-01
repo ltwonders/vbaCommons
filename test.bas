@@ -18,3 +18,9 @@ End Sub
 Private Sub test_text()
 
 End Sub
+Private Sub test_singletextdict()
+    Dim a As New SingleTextDict
+    a.addContent "使用量汇总", 1, 2
+    Set b = a.getContent
+End Sub
+

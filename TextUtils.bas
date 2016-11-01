@@ -1,4 +1,4 @@
-Attribute VB_Name = "TextUtil"
+Attribute VB_Name = "TextUtils"
 Public Function trimChar(original As String, Optional asc_num As Long = 32)
     trimChar = original
     If trimChar = "" Then Exit Function
@@ -10,3 +10,4 @@ Public Function trimChar(original As String, Optional asc_num As Long = 32)
         trimChar = Left(trimChar, Len(trimChar) - 1)
     Loop
 End Function
+
