@@ -31,7 +31,7 @@ Function getLastWorkday(Optional start_date As Date) As Date
 
     getLastWorkday = result
 End Function
-Private Sub Test()
+Private Sub test()
     a = getNextWorkday(DateValue("2016/10/10"))
     b = getLastWorkday(DateValue("2016/10/10"))
 End Sub

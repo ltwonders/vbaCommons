@@ -74,7 +74,7 @@ Public Function getMin(arr)
     
     If Err.Number > 0 Then Err.Clear Else getMin = result
 End Function
-Public Sub sortArray(arr, Optional Ascending As Boolean = True)
+Public Sub sortArray(ByRef arr, Optional Ascending As Boolean = True)
     If Not IsArray(arr) Then Err.Raise 23456, "Can't sort a non-array"
     
     Dim result()
@@ -95,6 +95,11 @@ Public Sub sortArray(arr, Optional Ascending As Boolean = True)
         
         If Ascending Then result(i) = valueCurrent Else result(bound - i) = valueCurrent
     Next i
+    
+End Sub
+Private Sub test()
+    a = Array(5, 3, 6, 8, 2)
+    sortArray a
     
 End Sub
 
