@@ -1,8 +1,8 @@
 Attribute VB_Name = "ArrayUtils"
 Public Function writeTwoDimenArray(arr, sht_to As String, col_to As Long, Optional row_to As Long = 0, Optional asTranspose As Boolean = True) As Boolean
-    'Write a one-dimen to the sht_to's col_to, first dimen in row, seconde dimen in col
+    'Write a two-dimen to the sht_to's col_to, first dimen in row, second dimen in col
     'Two-dimen array is default vertical first,then horizontal
-    'Default row_to will be the lastrow of col_to
+    'Default row_to will be the lastrow of sht_to's col_to + 1 
 
     If Not IsArray(arr) Then Exit Function
     On Error Resume Next
